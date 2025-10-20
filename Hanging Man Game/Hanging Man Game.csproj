@@ -24,7 +24,7 @@
 		<ApplicationTitle>Hanging Man Game</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.hanging_man_game</ApplicationId>
+		<ApplicationId>com.companyname.hangingmangame</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -57,9 +57,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\feet.png" />
+	  <None Remove="Resources\Images\head.png" />
+	  <None Remove="Resources\Images\landingpage.png" />
+	  <None Remove="Resources\Images\lefthand.png" />
+	  <None Remove="Resources\Images\mainpage.png" />
+	  <None Remove="Resources\Images\righthand.png" />
+	  <None Remove="Resources\Images\stomach.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="LandingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
