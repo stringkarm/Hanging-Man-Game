@@ -162,6 +162,20 @@ namespace Hanging_Man_Game
                     btn.IsEnabled = true;
         }
 
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                btn.IsEnabled = false;
+                HandleGuess(btn.Text[0]);
+            }
+        }
+
+        private void Home_Clicked(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new LandingPage();
+        }
+
         private void Reset_Clicked(object sender, EventArgs e)
         {
             mistakes = 0;
@@ -177,15 +191,6 @@ namespace Hanging_Man_Game
             Message = "";
             UpdateStatus();
             EnableLetters();
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.IsEnabled = false;
-                HandleGuess(btn.Text[0]);
-            }
         }
     }
 }

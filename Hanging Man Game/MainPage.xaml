@@ -16,6 +16,27 @@
                  Grid.ColumnSpan="2"
                  Color="#00000000"/>
 
+        <HorizontalStackLayout Grid.Row="0" Grid.ColumnSpan="2"
+                               HorizontalOptions="End"
+                               VerticalOptions="Start"
+                               Margin="0,10,10,0">
+
+            <ImageButton x:Name="Home"
+                         Source="home.png"
+                         Clicked="Home_Clicked"
+                         WidthRequest="40"
+                         HeightRequest="40"
+                         Margin="0,0,10,0"
+                         BackgroundColor="Transparent"/>
+
+            <ImageButton x:Name="Reset"
+                         Source="restart.png"
+                         Clicked="Reset_Clicked"
+                         WidthRequest="40"
+                         HeightRequest="40"
+                         BackgroundColor="Transparent"/>
+        </HorizontalStackLayout>
+        
         <Label Grid.Row="0" Grid.ColumnSpan="2"
                Text="{Binding GameStatus}"
                FontAttributes="Bold"
@@ -41,35 +62,35 @@
                    IsVisible="{Binding IsHeadVisible}"                  
                    WidthRequest="200"
                    HeightRequest="200"
-                   AbsoluteLayout.LayoutBounds="0.5,0.35,25,25"
+                   AbsoluteLayout.LayoutBounds="0.51,0.25,25,25"
                    AbsoluteLayout.LayoutFlags="PositionProportional" />
 
             <Image Source="stomach.png"
                    IsVisible="{Binding IsBodyVisible}"
                    WidthRequest="200"
                    HeightRequest="200"
-                   AbsoluteLayout.LayoutBounds="0.481,0.34,25,70"
+                   AbsoluteLayout.LayoutBounds="0.485,0.22,25,70"
                    AbsoluteLayout.LayoutFlags="PositionProportional" />
 
             <Image Source="lefthand.png"
                    IsVisible="{Binding IsLeftHandVisible}"
                    WidthRequest="200"
                    HeightRequest="200"
-                   AbsoluteLayout.LayoutBounds="0.49,0.36,25,25"
+                   AbsoluteLayout.LayoutBounds="0.493,0.253,25,25"
                    AbsoluteLayout.LayoutFlags="PositionProportional" />
 
             <Image Source="righthand.png"
                    IsVisible="{Binding IsRightHandVisible}"
                    WidthRequest="200"
                    HeightRequest="200"
-                   AbsoluteLayout.LayoutBounds="0.50,0.35,25,25"
+                   AbsoluteLayout.LayoutBounds="0.508,0.25,25,25"
                    AbsoluteLayout.LayoutFlags="PositionProportional" />
 
             <Image Source="feet.png"
                    IsVisible="{Binding IsFeetVisible}"
                    WidthRequest="200"
                    HeightRequest="200"
-                   AbsoluteLayout.LayoutBounds="0.492,0.356,35,25"
+                   AbsoluteLayout.LayoutBounds="0.497,0.25,35,25"
                    AbsoluteLayout.LayoutFlags="PositionProportional" />
         </AbsoluteLayout>
 
@@ -85,25 +106,14 @@
                    LineBreakMode="WordWrap"
                    Margin="10,-20,10,0" 
                    HeightRequest="80"/>
-            
+
             <Label Text="{Binding Spotlight}"
                    FontSize="36"
                    HorizontalOptions="Center"
                    VerticalOptions="End"
                    TextColor="Black"
                    FontAttributes="Bold"
-                   Margin="0,0,0,135"/>
-
-            <Button Text="Reset"
-                    BackgroundColor="Beige"
-                    TextColor="Black"
-                    CornerRadius="15"
-                    WidthRequest="120"
-                    HeightRequest="44"
-                    Clicked="Reset_Clicked"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Start"
-                    Margin="0,-100,0,0" />
+                   Margin="0,0,0,20"/>
         </VerticalStackLayout>
 
         <FlexLayout x:Name="LettersContainer"
@@ -118,6 +128,8 @@
                             WidthRequest="50"
                             CornerRadius="12"
                             BackgroundColor="Beige"
+                            BorderColor="Brown"
+                            BorderWidth="2"
                             TextColor="Black"
                             FontAttributes="Bold"
                             Text="{Binding .}"

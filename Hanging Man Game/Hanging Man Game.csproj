@@ -57,11 +57,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\ending.png" />
 	  <None Remove="Resources\Images\feet.png" />
 	  <None Remove="Resources\Images\head.png" />
+	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\landingpage.png" />
 	  <None Remove="Resources\Images\lefthand.png" />
 	  <None Remove="Resources\Images\mainpage.png" />
+	  <None Remove="Resources\Images\restart.png" />
 	  <None Remove="Resources\Images\righthand.png" />
 	  <None Remove="Resources\Images\stomach.png" />
 	</ItemGroup>
@@ -73,6 +76,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="EndingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="LandingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
