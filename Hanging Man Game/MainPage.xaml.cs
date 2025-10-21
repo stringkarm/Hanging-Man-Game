@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Data;
 using System.Runtime.CompilerServices;
 
 namespace Hanging_Man_Game
@@ -8,7 +7,7 @@ namespace Hanging_Man_Game
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        #region UI Properties
+        #region UI Bindings
         public string Spotlight
         {
             get => spotlight;
@@ -32,18 +31,29 @@ namespace Hanging_Man_Game
             get => gameStatus;
             set { gameStatus = value; OnPropertyChanged(); }
         }
+        #endregion
 
-        public string CurrentImage
-        {
-            get => currentImage;
-            set { currentImage = value; OnPropertyChanged(); }
-        }
+        #region Visibility Bindings
+        private bool isHeadVisible;
+        public bool IsHeadVisible { get => isHeadVisible; set { isHeadVisible = value; OnPropertyChanged(); } }
+
+        private bool isBodyVisible;
+        public bool IsBodyVisible { get => isBodyVisible; set { isBodyVisible = value; OnPropertyChanged(); } }
+
+        private bool isLeftHandVisible;
+        public bool IsLeftHandVisible { get => isLeftHandVisible; set { isLeftHandVisible = value; OnPropertyChanged(); } }
+
+        private bool isRightHandVisible;
+        public bool IsRightHandVisible { get => isRightHandVisible; set { isRightHandVisible = value; OnPropertyChanged(); } }
+
+        private bool isFeetVisible;
+        public bool IsFeetVisible { get => isFeetVisible; set { isFeetVisible = value; OnPropertyChanged(); } }
         #endregion
 
         #region Fields
         private readonly List<string> words = new()
         {
-            "python","javascript","maui","mongodb","sql","xaml","powerpoint","code"
+            "lion","bird","snake","monkey","tiger","parrot","raccoon","snail"
         };
 
         private string answer = "";
@@ -55,7 +65,6 @@ namespace Hanging_Man_Game
         private int mistakes = 0;
 
         private readonly int maxWrong = 5;
-        private string currentImage = "head.png";
         #endregion
 
         public MainPage()
@@ -67,18 +76,15 @@ namespace Hanging_Man_Game
             PickWord();
             CalculateWord(answer, guessed);
             UpdateStatus();
-            CurrentImage = "head.png"; 
         }
-
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         private void PickWord()
         {
-            answer = words[new Random().Next(words.Count)];
+            var rand = new Random();
+            answer = words[rand.Next(words.Count)];
         }
 
         private void CalculateWord(string answer, List<char> guessed)
@@ -109,15 +115,13 @@ namespace Hanging_Man_Game
 
         private void UpdateImage()
         {
-           
             switch (mistakes)
             {
-                case 1: CurrentImage = "head.png"; break;
-                case 2: CurrentImage = "stomach.png"; break;
-                case 3: CurrentImage = "lefthand.png"; break;
-                case 4: CurrentImage = "righthand.png"; break;
-                case 5: CurrentImage = "feet.png"; break;
-                default: CurrentImage = "head.png"; break;
+                case 1: IsHeadVisible = true; break;
+                case 2: IsBodyVisible = true; break;
+                case 3: IsLeftHandVisible = true; break;
+                case 4: IsRightHandVisible = true; break;
+                case 5: IsFeetVisible = true; break;
             }
         }
 
@@ -157,11 +161,17 @@ namespace Hanging_Man_Game
                 if (child is Button btn)
                     btn.IsEnabled = true;
         }
+
         private void Reset_Clicked(object sender, EventArgs e)
         {
             mistakes = 0;
             guessed.Clear();
-            CurrentImage = "head.png";
+            IsHeadVisible = false;
+            IsBodyVisible = false;
+            IsLeftHandVisible = false;
+            IsRightHandVisible = false;
+            IsFeetVisible = false;
+
             PickWord();
             CalculateWord(answer, guessed);
             Message = "";
@@ -178,5 +188,4 @@ namespace Hanging_Man_Game
             }
         }
     }
-
 }
