@@ -15,20 +15,15 @@
                Aspect="AspectFill"
                Grid.RowSpan="2" />
 
-        <Button x:Name="Start"
-                Text="START GAME"
-                Clicked="Start_Clicked"
-                Grid.Row="1"
-                HorizontalOptions="Center"
-                VerticalOptions="End"
-                BackgroundColor="#3498DB"  
-                TextColor="White"
-                FontSize="Large"
-                FontAttributes="Bold"
-                WidthRequest="250"
-                HeightRequest="70"
-                CornerRadius="35"
-                Margin="0,0,0,50" />
+        <ImageButton x:Name="Start"
+                    Source="play.png"
+                    Clicked="Start_Clicked"
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"            
+                    HeightRequest="200"
+                    BackgroundColor="Transparent"
+                    Margin="0,0,0,-20" />
 
     </Grid>
 </ContentPage>

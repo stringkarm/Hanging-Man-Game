@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\icon.png" ForegroundFile="Resources\AppIcon\icon.png"/>
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -64,6 +64,7 @@
 	  <None Remove="Resources\Images\landingpage.png" />
 	  <None Remove="Resources\Images\lefthand.png" />
 	  <None Remove="Resources\Images\mainpage.png" />
+	  <None Remove="Resources\Images\play.png" />
 	  <None Remove="Resources\Images\restart.png" />
 	  <None Remove="Resources\Images\righthand.png" />
 	  <None Remove="Resources\Images\stomach.png" />
@@ -76,9 +77,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="EndingPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="LandingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
