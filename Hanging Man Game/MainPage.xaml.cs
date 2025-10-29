@@ -56,6 +56,13 @@ namespace Hanging_Man_Game
             "lion","bird","snake","monkey","tiger","parrot","raccoon","snail"
         };
 
+        public string Hint
+        {
+            get => hint;
+            set { hint = value; OnPropertyChanged(); }
+        }
+        private string hint;
+
         private string answer = "";
         private string spotlight;
         private readonly List<char> guessed = new();
@@ -85,6 +92,35 @@ namespace Hanging_Man_Game
         {
             var rand = new Random();
             answer = words[rand.Next(words.Count)];
+
+            // Assign hints based on the chosen word
+            switch (answer)
+            {
+                case "lion":
+                    Hint = "Hint: This is the king of the jungle.";
+                    break;
+                case "bird":
+                    Hint = "Hint: This animal can fly.";
+                    break;
+                case "snake":
+                    Hint = "Hint: This animal slithers on the ground.";
+                    break;
+                case "monkey":
+                    Hint = "Hint: This animal loves bananas.";
+                    break;
+                case "tiger":
+                    Hint = "Hint: This is a striped wild cat.";
+                    break;
+                case "parrot":
+                    Hint = "Hint: This bird can mimic human speech.";
+                    break;
+                case "raccoon":
+                    Hint = "Hint: This animal is known for wearing a 'mask'.";
+                    break;
+                case "snail":
+                    Hint = "Hint: This animal carries its home on its back.";
+                    break;
+            }
         }
 
         private void CalculateWord(string answer, List<char> guessed)

@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\icon.png" ForegroundFile="Resources\AppIcon\icon.png"/>
+		<MauiIcon Include="Resources\AppIcon\icon.png" ForegroundFile="Resources\AppIcon\icon.png" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -63,6 +63,7 @@
 	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\landingpage.png" />
 	  <None Remove="Resources\Images\lefthand.png" />
+	  <None Remove="Resources\Images\letters.png" />
 	  <None Remove="Resources\Images\mainpage.png" />
 	  <None Remove="Resources\Images\play.png" />
 	  <None Remove="Resources\Images\restart.png" />
