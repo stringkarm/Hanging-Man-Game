@@ -51,10 +51,18 @@ namespace Hanging_Man_Game
         #endregion
 
         #region Fields
-        private readonly List<string> words = new()
+        // Separate lists for categories
+        private readonly List<string> animalWords = new()
         {
             "lion","bird","snake","monkey","tiger","parrot","raccoon","snail"
         };
+
+        private readonly List<string> insectWords = new()
+        {
+            "butterfly", "ant", "spider", "mosquito", "bee", "ladybug", "dragonfly"
+        };
+
+        private string currentCategory = "Animals";
 
         public string Hint
         {
@@ -88,14 +96,30 @@ namespace Hanging_Man_Game
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        // NEW: Button Handler for clicking the Category Image
+        private async void Category_Clicked(object sender, EventArgs e)
+        {
+           
+            string action = await DisplayActionSheet("Choose Category", "Cancel", null, "Animals", "Insects");
+
+            if (action == "Animals" || action == "Insects")
+            {
+                currentCategory = action;
+                Reset_Clicked(sender, e);
+            }
+        }
+
         private void PickWord()
         {
-            var rand = new Random();
-            answer = words[rand.Next(words.Count)];
 
-            // Assign hints based on the chosen word
+            var wordList = currentCategory == "Animals" ? animalWords : insectWords;
+
+            var rand = new Random();
+            answer = wordList[rand.Next(wordList.Count)];
+
             switch (answer)
             {
+
                 case "lion":
                     Hint = "Hint: This is the king of the jungle.";
                     break;
@@ -119,6 +143,29 @@ namespace Hanging_Man_Game
                     break;
                 case "snail":
                     Hint = "Hint: This animal carries its home on its back.";
+                    break;
+
+                // --- INSECTS---
+                case "butterfly":
+                    Hint = "Hint: Starts as a caterpillar and has colorful wings.";
+                    break;
+                case "ant":
+                    Hint = "Hint: Tiny insect that lives in a colony and works hard.";
+                    break;
+                case "spider":
+                    Hint = "Hint: Not technically an insect (arachnid), but spins webs.";
+                    break;
+                case "mosquito":
+                    Hint = "Hint: An annoying insect that bites and drinks blood.";
+                    break;
+                case "bee":
+                    Hint = "Hint: Yellow and black insect that makes honey.";
+                    break;
+                case "ladybug":
+                    Hint = "Hint: A small red beetle with black spots.";
+                    break;
+                case "dragonfly":
+                    Hint = "Hint: Has a long body and flies near water rapidly.";
                     break;
             }
         }
@@ -163,7 +210,7 @@ namespace Hanging_Man_Game
 
         private void UpdateStatus()
         {
-            GameStatus = $"Errors: {mistakes} of {maxWrong}";
+            GameStatus = $"     Errors: {mistakes} of {maxWrong} \nCategory: {currentCategory}";
         }
 
         private void CheckIfGameWon()
