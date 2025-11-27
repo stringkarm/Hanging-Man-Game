@@ -33,7 +33,7 @@ namespace Hanging_Man_Game
         }
         #endregion
 
-        #region Visibility Bindings
+        #region Visibility Bindings.
         private bool isHeadVisible;
         public bool IsHeadVisible { get => isHeadVisible; set { isHeadVisible = value; OnPropertyChanged(); } }
 
@@ -50,19 +50,80 @@ namespace Hanging_Man_Game
         public bool IsFeetVisible { get => isFeetVisible; set { isFeetVisible = value; OnPropertyChanged(); } }
         #endregion
 
-        #region Fields
-        // Separate lists for categories
-        private readonly List<string> animalWords = new()
+        #region Fields (UPDATED)
+        private readonly Dictionary<string, (List<string> words, List<string> hints)> Categories = new()
         {
-            "lion","bird","snake","monkey","tiger","parrot","raccoon","snail"
+            {
+                "Mammals",
+                (
+                    new() { "orangutan", "rhinoceros", "capybara", "chimpanzee", "hippopotamus" },
+                    new()
+                    {
+                        "Hint: A large, tree-dwelling great ape with long arms.",
+                        "Hint: A large, herbivorous mammal with a distinctive horn on its nose.",
+                        "Hint: The world's largest rodent, semi-aquatic and found in South America.",
+                        "Hint: A highly intelligent great ape, closely related to humans.",
+                        "Hint: A large, mostly herbivorous mammal, spending its days in the water."
+                    }
+                )
+            },
+            {
+                "Reptiles",
+                (
+                    new() { "alligator", "anaconda", "crocodilian", "chameleon" },
+                    new()
+                    {
+                        "Hint: A large semi-aquatic reptile with a broad snout and powerful jaws.",
+                        "Hint: A massive, non-venomous snake found in tropical South America.",
+                        "Hint: A large, predatory reptile that lives mostly in the water.",
+                        "Hint: A lizard famous for its ability to change skin color."
+                    }
+                )
+            },
+            {
+                "Plants",
+                (
+                    new() { "mahogany", "bromeliad", "cecropia", "stranglerfig", "fern" },
+                    new()
+                    {
+                        "Hint: A tropical hardwood tree prized for its reddish-brown wood.",
+                        "Hint: A family of tropical flowering plants often found growing on trees.",
+                        "Hint: A fast-growing pioneer tree known for its hollow stems.",
+                        "Hint: A type of tree that germinates in a host tree and slowly envelops it.",
+                        "Hint: A non-flowering plant that reproduces by spores, common on the forest floor."
+                    }
+                )
+            },
+            {
+                "Insects",
+                (
+                    new() { "tarantula", "millipede", "cockroach", "stickinsect", "leafcutterant" },
+                    new()
+                    {
+                        "Hint: A very large, hairy spider (arachnid) found in tropical regions.",
+                        "Hint: A long-bodied arthropod with many pairs of legs (not always a thousand!).",
+                        "Hint: A nocturnal insect notorious for infesting homes, although many live in forests.",
+                        "Hint: An insect highly specialized for camouflage, resembling a twig.",
+                        "Hint: A tropical insect that cuts foliage to farm fungus in its nest."
+                    }
+                )
+            },
+            {
+                "Phenomena",
+                (
+                    new() { "biodiversity", "canopy", "understory", "ecosystem" },
+                    new()
+                    {
+                        "Hint: The variety of life in the world or in a particular habitat.",
+                        "Hint: The uppermost layer of branches and leaves in a forest.",
+                        "Hint: The layer of vegetation beneath the main branches of a forest.",
+                        "Hint: A biological community of interacting organisms and their physical environment."
+                    }
+                )
+            }
         };
 
-        private readonly List<string> insectWords = new()
-        {
-            "butterfly", "ant", "spider", "mosquito", "bee", "ladybug", "dragonfly"
-        };
-
-        private string currentCategory = "Animals";
+        private string currentCategory = "Mammals"; // Default to a new category
 
         public string Hint
         {
@@ -96,13 +157,15 @@ namespace Hanging_Man_Game
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        // NEW: Button Handler for clicking the Category Image
         private async void Category_Clicked(object sender, EventArgs e)
         {
-           
-            string action = await DisplayActionSheet("Choose Category", "Cancel", null, "Animals", "Insects");
+             
+            string[] categoryNames = Categories.Keys.ToArray();
 
-            if (action == "Animals" || action == "Insects")
+            string action = await DisplayActionSheet("Choose Category", "Cancel", null, categoryNames);
+
+            //  new categories
+            if (Categories.ContainsKey(action))
             {
                 currentCategory = action;
                 Reset_Clicked(sender, e);
@@ -111,63 +174,15 @@ namespace Hanging_Man_Game
 
         private void PickWord()
         {
-
-            var wordList = currentCategory == "Animals" ? animalWords : insectWords;
+            var categoryData = Categories[currentCategory];
+            var wordList = categoryData.words;
+            var hintList = categoryData.hints;
 
             var rand = new Random();
-            answer = wordList[rand.Next(wordList.Count)];
+            int index = rand.Next(wordList.Count);
 
-            switch (answer)
-            {
-
-                case "lion":
-                    Hint = "Hint: This is the king of the jungle.";
-                    break;
-                case "bird":
-                    Hint = "Hint: This animal can fly.";
-                    break;
-                case "snake":
-                    Hint = "Hint: This animal slithers on the ground.";
-                    break;
-                case "monkey":
-                    Hint = "Hint: This animal loves bananas.";
-                    break;
-                case "tiger":
-                    Hint = "Hint: This is a striped wild cat.";
-                    break;
-                case "parrot":
-                    Hint = "Hint: This bird can mimic human speech.";
-                    break;
-                case "raccoon":
-                    Hint = "Hint: This animal is known for wearing a 'mask'.";
-                    break;
-                case "snail":
-                    Hint = "Hint: This animal carries its home on its back.";
-                    break;
-
-                // --- INSECTS---
-                case "butterfly":
-                    Hint = "Hint: Starts as a caterpillar and has colorful wings.";
-                    break;
-                case "ant":
-                    Hint = "Hint: Tiny insect that lives in a colony and works hard.";
-                    break;
-                case "spider":
-                    Hint = "Hint: Not technically an insect (arachnid), but spins webs.";
-                    break;
-                case "mosquito":
-                    Hint = "Hint: An annoying insect that bites and drinks blood.";
-                    break;
-                case "bee":
-                    Hint = "Hint: Yellow and black insect that makes honey.";
-                    break;
-                case "ladybug":
-                    Hint = "Hint: A small red beetle with black spots.";
-                    break;
-                case "dragonfly":
-                    Hint = "Hint: Has a long body and flies near water rapidly.";
-                    break;
-            }
+            answer = wordList[index];
+            Hint = hintList[index];
         }
 
         private void CalculateWord(string answer, List<char> guessed)
@@ -176,6 +191,7 @@ namespace Hanging_Man_Game
             Spotlight = string.Join(' ', temp);
         }
 
+       
         private void HandleGuess(char letter)
         {
             if (guessed.Contains(letter)) return;
